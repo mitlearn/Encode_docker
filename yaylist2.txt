@@ -1,0 +1,28 @@
+#Scripts
+vapoursynth-plugin-g41fun-git
+vapoursynth-plugin-maskdetail-git
+vapoursynth-plugin-fvsfunc-git
+vapoursynth-plugin-havsfunc-git
+#vapoursynth-plugin-kagefunc-git
+vapoursynth-plugin-muvsfunc-git
+vapoursynth-plugin-mvsfunc-git
+vapoursynth-plugin-nnedi3_resample-git
+vapoursynth-plugin-adjust-git
+vapoursynth-plugin-vstaambk-git
+vapoursynth-plugin-xvs-git
+vapoursynth-plugin-vsutil-git
+vapoursynth-plugin-rekt-git
+vapoursynth-plugin-awsmfunc-git
+vapoursynth-plugin-lvsfunc-git
+
+# OpenCL/Vulkan/Cuda needed
+# vapoursynth-plugin-bilateralgpu-git
+# vapoursynth-plugin-bm3dcuda-git
+# vapoursynth-plugin-eedi2cuda-git
+# vapoursynth-plugin-eedi3m-git
+# vapoursynth-plugin-edi_rpow2-git
+vapoursynth-plugin-knlmeanscl-git
+vapoursynth-plugin-nnedi3cl-git
+# vapoursynth-plugin-nnedi3_resamplecl-git
+vapoursynth-plugin-xclean-git
+# vapoursynth-plugin-waifu2x-ncnn-vulkan-git
