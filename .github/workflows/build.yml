@@ -8,6 +8,10 @@ on:
       - master
     tags:
       - v*
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Manual'
 
 env:
   REGISTRY: ghcr.io
