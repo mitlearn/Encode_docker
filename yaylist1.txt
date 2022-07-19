@@ -42,7 +42,7 @@ vapoursynth-plugin-median-git
 vapoursynth-miscfilters-obsolete-git
 vapoursynth-plugin-msmoosh-git
 vapoursynth-plugin-mvtools-git
-vapoursynth-plugin-mvtools_sf-git
+# vapoursynth-plugin-mvtools_sf-git
 #N
 vapoursynth-plugin-nnedi3_weights_bin
 #R

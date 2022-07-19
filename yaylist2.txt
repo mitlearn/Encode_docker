@@ -1,5 +1,5 @@
 #Scripts
-vapoursynth-plugin-g41fun-git
+# vapoursynth-plugin-g41fun-git
 vapoursynth-plugin-maskdetail-git
 vapoursynth-plugin-fvsfunc-git
 vapoursynth-plugin-havsfunc-git
@@ -24,5 +24,5 @@ vapoursynth-plugin-lvsfunc-git
 vapoursynth-plugin-knlmeanscl-git
 vapoursynth-plugin-nnedi3cl-git
 # vapoursynth-plugin-nnedi3_resamplecl-git
-vapoursynth-plugin-xclean-git
+# vapoursynth-plugin-xclean-git
 # vapoursynth-plugin-waifu2x-ncnn-vulkan-git
