@@ -39,7 +39,7 @@ vapoursynth-plugin-imwri-git
 vapoursynth-plugin-knlm-git
 #M
 vapoursynth-plugin-median-git
-vapoursynth-miscfilters-obsolete-git
+# vapoursynth-miscfilters-obsolete-git
 vapoursynth-plugin-msmoosh-git
 vapoursynth-plugin-mvtools-git
 # vapoursynth-plugin-mvtools_sf-git
