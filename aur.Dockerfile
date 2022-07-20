@@ -23,7 +23,8 @@ RUN yay -Sy --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git x265-git
 FROM thann/yay:latest AS vs
 COPY ./yay* /tmp/
 USER root
-RUN pacman -Sy --noconfirm zimg vapoursynth
+RUN pacman -Sy --noconfirm zimg vapoursynth && \
+    rm -rf /usr/lib/vapoursynth/libmiscfilters.so
 USER build
 #     yay -Sya --noconfirm zimg vapoursynth-git && \
 RUN yay -Sya --noconfirm $(cat /tmp/yaylist1.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
