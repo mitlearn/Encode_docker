@@ -33,9 +33,9 @@ RUN yay -Sya --noconfirm $(cat /tmp/yaylist1.txt | grep -Ev '^$|#' | tr -s "\r\n
 
 FROM archlinux:base AS main
 ## COPY Compile
-COPY --from=codec /tmp/yay /tmp/yay/
+COPY --from=codec /home/build/.cache/yay /tmp/yay/
 COPY --from=vs /usr /usr
-COPY --from=vs /tmp/yay /tmp/yay/
+COPY --from=vs /home/build/.cache/yay /tmp/yay/
 # COPY --from=vs /usr/lib/vapoursynth /usr/lib/vapoursynth/
 RUN pacman -Sy --noconfirm --needed --noprogressbar python python-pip && \
     pacman -U /tmp/yay/**/*.pkg.* && rm -f /tmp && \
