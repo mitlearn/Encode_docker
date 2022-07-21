@@ -37,7 +37,7 @@ COPY --from=codec /home/build/.cache/yay /tmp/yay/
 COPY --from=vs /usr /usr
 COPY --from=vs /home/build/.cache/yay /tmp/yay/
 # COPY --from=vs /usr/lib/vapoursynth /usr/lib/vapoursynth/
-RUN pacman -Sy --noconfirm --needed --noprogressbar python python-pip && \
+RUN pacman -Sy --noconfirm --needed --noprogressbar python-pip && \
     pacman -U /tmp/yay/**/*.pkg.* && rm -f /tmp && \
     pip3 install yuuno jupyterlab
 
