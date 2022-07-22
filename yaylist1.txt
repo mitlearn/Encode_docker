@@ -69,5 +69,5 @@ vapoursynth-plugin-wwxd-git
 #Y
 vapoursynth-plugin-yadifmod-git
 #Z
-vapoursynth-plugin-znedi3_resample-git
+# vapoursynth-plugin-znedi3_resample-git
 
