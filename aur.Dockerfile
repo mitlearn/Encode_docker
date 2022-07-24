@@ -20,24 +20,28 @@ FROM thann/yay:latest AS codec
 RUN yay -Sy --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git x265-git
 
 
-FROM thann/yay:latest AS vs
-COPY ./yay* /tmp/
-USER root
-RUN pacman -Sy --noconfirm zimg vapoursynth && \
-    rm -rf /usr/lib/vapoursynth/libmiscfilters.so
-USER build
-#     yay -Sya --noconfirm zimg vapoursynth-git && \
-RUN yay -Sya --noconfirm $(cat /tmp/yaylist1.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
-    yay -Sya --noconfirm $(cat /tmp/yaylist2.txt | grep -Ev '^$|#' | tr -s "\r\n" " ")
+# FROM thann/yay:latest AS vs
+# COPY ./yay* /tmp/
+# USER root
+# RUN pacman -Sy --noconfirm zimg vapoursynth && \
+#     rm -rf /usr/lib/vapoursynth/libmiscfilters.so
+# USER build
+# #     yay -Sya --noconfirm zimg vapoursynth-git && \
+# RUN yay -Sya --noconfirm $(cat /tmp/yaylist1.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
+#     yay -Sya --noconfirm $(cat /tmp/yaylist2.txt | grep -Ev '^$|#' | tr -s "\r\n" " ")
 
 
-FROM archlinux:base AS main
+FROM greyltc/archlinux-aur:yay
 ## COPY Compile
 COPY --from=codec /home/build/.cache/yay /tmp/yay/
-COPY --from=vs /usr /usr
-COPY --from=vs /home/build/.cache/yay /tmp/yay/
-# COPY --from=vs /usr/lib/vapoursynth /usr/lib/vapoursynth/
 RUN pacman -U /tmp/yay/**/*.pkg.* && rm -f /tmp && \
+# COPY --from=vs /usr /usr
+# COPY --from=vs /home/build/.cache/yay /tmp/yay/
+# COPY --from=vs /usr/lib/vapoursynth /usr/lib/vapoursynth/
+#     yay -Sya --noconfirm zimg vapoursynth-git && \
+RUN yay -Sya --noconfirm $(cat /tmp/yaylist1.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
+    yay -Sya --noconfirm $(cat /tmp/yaylist2.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
+# RUN pacman -U /tmp/yay/**/*.pkg.* && rm -f /tmp && \
     pip3 install yuuno jupyterlab
 
 ENV JUPYTER_CONFIG_DIR=/jupyter/config \

@@ -1,6 +1,6 @@
 vapoursynth-plugin-lsmashsource-git
 #A
-#vapoursynth-plugin-adaptivegrain-git
+vapoursynth-plugin-adaptivegrain-git
 vapoursynth-plugin-addgrain-git
 #vapoursynth-plugin-vsakarin-git
 #vapoursynth-plugin-awarpsharp2-git

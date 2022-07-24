@@ -3,7 +3,7 @@
 vapoursynth-plugin-maskdetail-git
 vapoursynth-plugin-fvsfunc-git
 vapoursynth-plugin-havsfunc-git
-#vapoursynth-plugin-kagefunc-git
+vapoursynth-plugin-kagefunc-git
 vapoursynth-plugin-muvsfunc-git
 vapoursynth-plugin-mvsfunc-git
 vapoursynth-plugin-nnedi3_resample-git
