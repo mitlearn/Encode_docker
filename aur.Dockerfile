@@ -38,8 +38,8 @@ RUN pacman -U /tmp/yay/**/*.pkg.* && rm -f /tmp && \
 # COPY --from=vs /usr /usr
 # COPY --from=vs /home/build/.cache/yay /tmp/yay/
 # COPY --from=vs /usr/lib/vapoursynth /usr/lib/vapoursynth/
-#     yay -Sya --noconfirm zimg vapoursynth-git && \
-RUN yay -Sya --noconfirm $(cat /tmp/yaylist1.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
+RUN yay -Sya --noconfirm zimg vapoursynth-git && \
+    yay -Sya --noconfirm $(cat /tmp/yaylist1.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
     yay -Sya --noconfirm $(cat /tmp/yaylist2.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
 # RUN pacman -U /tmp/yay/**/*.pkg.* && rm -f /tmp && \
     pip3 install yuuno jupyterlab
