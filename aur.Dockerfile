@@ -1,6 +1,6 @@
 # nohup docker build . -f /root/aur.Dockerfile -t vapoursynth-yuuno-codec:0.1 > run.log 2>&1 &
 
-FROM archlinux:base as builder
+# FROM archlinux:base-devel as builder
 
 ARG BUILD_DATE
 LABEL Version='AUR Version'\
@@ -16,7 +16,9 @@ LABEL Version='AUR Version'\
      # ./configure --enable-gpl --enable-version3 --disable-static --enable-shared --disable-all --disable-autodetect --enable-avcodec --enable-avformat --enable-swresample --enable-swscale --disable-asm --disable-debug && \
      # make -j$(nproc) && make install
 
-FROM thann/yay:latest AS codec
+## Build codec
+FROM rnbguy/archlinux-yay:latest AS codec
+USER aur
 RUN yay -Sy --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git x265-git
 
 
@@ -31,18 +33,26 @@ RUN yay -Sy --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git x265-git
 #     yay -Sya --noconfirm $(cat /tmp/yaylist2.txt | grep -Ev '^$|#' | tr -s "\r\n" " ")
 
 
-FROM greyltc/archlinux-aur:yay
 ## COPY Compile
-COPY --from=codec /home/build/.cache/yay /tmp/yay/
-RUN pacman -U /tmp/yay/**/*.pkg.* && rm -f /tmp && \
-# COPY --from=vs /usr /usr
-# COPY --from=vs /home/build/.cache/yay /tmp/yay/
-# COPY --from=vs /usr/lib/vapoursynth /usr/lib/vapoursynth/
+FROM rnbguy/archlinux-yay:latest as Main
+COPY --from=codec /usr/ /usr/
+USER aur
+## Build vapoursynth
 RUN yay -Sya --noconfirm zimg vapoursynth-git && \
+    rm -rf /usr/lib/vapoursynth/libmiscfilters.so && \
     yay -Sya --noconfirm $(cat /tmp/yaylist1.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
-    yay -Sya --noconfirm $(cat /tmp/yaylist2.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
-# RUN pacman -U /tmp/yay/**/*.pkg.* && rm -f /tmp && \
+    yay -Sya --noconfirm $(cat /tmp/yaylist2.txt | grep -Ev '^$|#' | tr -s "\r\n" " ")
+
+## Install jupyter
+RUN yay -Sya --noconfirm python3 python-pip && \
     pip3 install yuuno jupyterlab
+
+# FROM archlinux:base as Main
+# COPY --from=codec /usr /usr
+# COPY --from=vs /usr /usr
+# COPY --from=vs /usr/lib/vapoursynth /usr/lib/vapoursynth/
+# RUN yay -Sya --noconfirm python3 python-pip && \
+#     pip3 install yuuno jupyterlab
 
 ENV JUPYTER_CONFIG_DIR=/jupyter/config \
     JUPYTER_DATA_DIR=/jupyter/data \
