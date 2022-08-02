@@ -19,7 +19,7 @@
 ## Build codec
 FROM rnbguy/archlinux-yay:latest AS codec
 USER aur
-RUN yay -Sy --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git x265-git
+RUN yay -Syu --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git x265-git
 
 
 # FROM thann/yay:latest AS vs
@@ -44,13 +44,13 @@ RUN yay -Sya --noconfirm zimg vapoursynth-git && \
     yay -Sya --noconfirm $(cat /tmp/yaylist2.txt | grep -Ev '^$|#' | tr -s "\r\n" " ")
 
 ## Install jupyter
-
 ARG BUILD_DATE
 LABEL Version='AUR Version'\
       MAINTAINER='Learning Enocder' \
       DESCRIPTTION='Bulid in ArchLinux；Driven by AUR; Built on ${BUILD_DATE}'
-RUN yay -Sya --noconfirm python3 python-pip && \
-    pip3 install yuuno jupyterlab
+USER root
+RUN  pacman -Syu --noconfirm python3 python-pip && \
+     pip3 install yuuno jupyterlab
 
 # FROM archlinux:base as Main
 # COPY --from=codec /usr /usr
