@@ -2,10 +2,10 @@
 
 # FROM archlinux:base-devel as builder
 
-ARG BUILD_DATE
-LABEL Version='AUR Version'\
-      MAINTAINER='Learning Enocder' \
-      DESCRIPTTION='Bulid in ArchLinux；Driven by AUR; Built on ${BUILD_DATE}'
+# ARG BUILD_DATE
+# LABEL Version='AUR Version'\
+#       MAINTAINER='Learning Enocder' \
+#       DESCRIPTTION='Bulid in ArchLinux；Driven by AUR; Built on ${BUILD_DATE}'
 
 # RUN pacman -Syyu --noconfirm && \
 #     pacman-key --init && \
@@ -39,11 +39,16 @@ COPY --from=codec /usr/ /usr/
 USER aur
 ## Build vapoursynth
 RUN yay -Sya --noconfirm zimg vapoursynth-git && \
-    rm -rf /usr/lib/vapoursynth/libmiscfilters.so && \
+    su root rm -rf /usr/lib/vapoursynth/libmiscfilters.so && \
     yay -Sya --noconfirm $(cat /tmp/yaylist1.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
     yay -Sya --noconfirm $(cat /tmp/yaylist2.txt | grep -Ev '^$|#' | tr -s "\r\n" " ")
 
 ## Install jupyter
+
+ARG BUILD_DATE
+LABEL Version='AUR Version'\
+      MAINTAINER='Learning Enocder' \
+      DESCRIPTTION='Bulid in ArchLinux；Driven by AUR; Built on ${BUILD_DATE}'
 RUN yay -Sya --noconfirm python3 python-pip && \
     pip3 install yuuno jupyterlab
 
