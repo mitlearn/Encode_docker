@@ -6,13 +6,13 @@ RUN yay -Syy --noconfirm
 
 ## Build codec
 FROM base AS codec
-RUN yay -S --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git x265-git
+RUN yay -Sya --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git x265-git
 
 ## COPY Compile
 FROM base AS vs
 # COPY --from=codec /usr/ /usr/
 ## Build vapoursynth
-RUN yay -Sy --noconfirm zimg vapoursynth-git && \
+RUN yay -Sya --noconfirm zimg-git vapoursynth-git && \
     sudo -u root rm -rf /usr/lib/vapoursynth/libmiscfilters.so && \
     yay -Sa --noconfirm $(cat /tmp/yaylist1.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
     yay -Sa --noconfirm $(cat /tmp/yaylist2.txt | grep -Ev '^$|#' | tr -s "\r\n" " ")
