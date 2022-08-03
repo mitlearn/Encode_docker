@@ -26,8 +26,8 @@ LABEL Version='AUR Version'\
 COPY --from=codec /usr/ /usr/
 COPY --from=vs /usr/ /usr/
 # USER root
-RUN pacman -Syyu --noconfirm python3 python-pip && \
-    pip install yuuno jupyterlab && pip cache purge && \
+# RUN pacman -Syyu --noconfirm python3 python-pip && \
+RUN pip install yuuno jupyterlab && pip cache purge && \
     pacman -Scc && pacman -Qqdt | pacman -Rs -
 
 
