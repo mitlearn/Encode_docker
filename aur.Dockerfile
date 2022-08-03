@@ -13,6 +13,8 @@ FROM rnbguy/archlinux-yay:latest AS codec
 USER aur
 RUN yay -Syu --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git x265-git && \
     sudo -u root mkdir -p /build && sudo -u root chown -R aur /build  && \
+    sudo -u root mkdir -p /build/bin && sudo -u root chown -R aur /build/bin  && \
+    sudo -u root mkdir -p /build/lib && sudo -u root chown -R aur /build/lib  && \
     find /usr/lib -name "*lsmash.so*" -type f | xargs -i cp -f {} /build/lib/ && \
     find /usr/lib -name "*x264.so*" -type f | xargs -i cp -f {} /build/lib/ && \
     cp /usr/lib/libx265.so /build/lib/ && cp /usr/lib/libhdr10plus.so /build/lib/ && \
