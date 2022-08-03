@@ -36,6 +36,7 @@ RUN yay -Syu --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git x265-gi
 ## COPY Compile
 FROM rnbguy/archlinux-yay:latest as Main
 COPY --from=codec /usr/ /usr/
+COPY ./yay* /tmp/
 USER aur
 ## Build vapoursynth
 RUN yay -Sya --noconfirm zimg vapoursynth-git && \
