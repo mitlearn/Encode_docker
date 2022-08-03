@@ -39,7 +39,7 @@ COPY --from=codec /usr/ /usr/
 COPY ./yay* /tmp/
 USER aur
 ## Build vapoursynth
-RUN yay -Syyu --noconfirm zimg vapoursynth-git && \
+RUN yay -Syyu --noconfirm zimg vapoursynth && \
     sudo -u root rm -rf /usr/lib/vapoursynth/libmiscfilters.so && \
     yay -Sya --noconfirm $(cat /tmp/yaylist1.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
     yay -Sya --noconfirm $(cat /tmp/yaylist2.txt | grep -Ev '^$|#' | tr -s "\r\n" " ")
