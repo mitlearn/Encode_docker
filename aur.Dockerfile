@@ -11,7 +11,7 @@
 ## Build codec
 FROM rnbguy/archlinux-yay:latest AS codec
 USER aur
-RUN yay -Syu --noconfirm ffmpeg svt-av1-git x264-tmod-git l-smash-x264-tmod-git x265-git && \
+RUN yay -Syu --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git x265-git && \
     sudo -u root mkdir -p /build && sudo -u root chown -R aur /build  && \
     find /usr/lib -name "*lsmash.so*" -type f | xargs -i cp -f {} /build/lib/ && \
     find /usr/lib -name "*x264.so*" -type f | xargs -i cp -f {} /build/lib/ && \
@@ -34,8 +34,8 @@ RUN yay -Syyu --noconfirm zimg vapoursynth && \
 
 ## Install jupyter
 ARG BUILD_DATE
+MAINTAINER Learning Enocder
 LABEL Version='AUR Version'\
-      MAINTAINER='Learning Enocder' \
       DESCRIPTTION='Bulid in ArchLinux；Driven by AUR; Built on ${BUILD_DATE}'
 USER root
 RUN  pacman -Syu --noconfirm python3 python-pip && \
