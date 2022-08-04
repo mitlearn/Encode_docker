@@ -19,7 +19,7 @@ RUN yay -Syu --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git x265-gi
     find /usr/lib -name "*x264.so*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
     cp /usr/lib/libx265.so /build/lib/ && cp /usr/lib/libhdr10plus.so /build/lib/ && \
     find /usr/lib -name "libSvtAv1.so*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
-    cp /usr/bin/* /build/bin/
+    cd /usr/bin/ && cp -r $(ls |grep -v x264|grep -v x265|grep -v Av1|xargs) /build/bin/
 
 
 ## COPY Compile
