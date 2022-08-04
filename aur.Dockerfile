@@ -11,7 +11,7 @@
 ## Build codec
 FROM rnbguy/archlinux-yay:latest AS codec
 USER aur
-RUN yay -Syu --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git x265-git && \
+RUN yay -Syu --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git x265 && \
     sudo -u root mkdir -p /build && sudo -u root chown -R aur /build  && \
     sudo -u root mkdir -p /build/bin && sudo -u root chown -R aur /build/bin  && \
     sudo -u root mkdir -p /build/lib && sudo -u root chown -R aur /build/lib  && \
