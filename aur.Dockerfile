@@ -11,13 +11,13 @@
 ## Build codec
 FROM rnbguy/archlinux-yay:latest AS codec
 USER aur
-RUN yay -Syu --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git x265 && \
+RUN yay -Syu --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git && \
     sudo -u root mkdir -p /build && sudo -u root chown -R aur /build  && \
     sudo -u root mkdir -p /build/bin && sudo -u root chown -R aur /build/bin  && \
     sudo -u root mkdir -p /build/lib && sudo -u root chown -R aur /build/lib  && \
     find /usr/lib -name "*lsmash.so*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
     find /usr/lib -name "*x264.so*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
-    cp /usr/lib/libx265.so /build/lib/ && cp /usr/lib/libhdr10plus.so /build/lib/ && \
+    # cp /usr/lib/libx265.so /build/lib/ && cp /usr/lib/libhdr10plus.so /build/lib/ && \
     find /usr/lib -name "libSvtAv1.so*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
     find /usr/lib -name "SvtAv1*" -maxdepth 1 -type f | xargs -i cp -f {} /build/bin/ && \
     find /usr/lib -name "x26*" -maxdepth 1 -type f | xargs -i cp -f {} /build/bin/
