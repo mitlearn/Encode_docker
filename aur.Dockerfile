@@ -34,9 +34,9 @@ RUN yay -Syyu --noconfirm zimg vapoursynth && \
     sudo -u root mkdir -p /build && sudo -u root chown -R aur /build  && \
     sudo -u root mkdir -p /build/lib && sudo -u root chown -R aur /build/lib && \
     sudo -u root mkdir -p /build/site-packages && sudo -u root chown -R aur /build/site-packages && \
-    find /usr/lib -name "vapoursynth*" -type d | xargs -i cp -f {} /build/lib/ && \
-    find /usr/lib /usr/lib/python3.10/site-packages/ -maxdepth 1 -name "*.py" -type f | xargs -i cp -f {} /build/site-packages/ && \
-    find /usr/lib /usr/lib/python3.10/site-packages/ -maxdepth 1 -name "vsutil" -type d | xargs -i cp -rf {} /build/site-packages/
+    find /usr/lib -name "vapoursynth*" -maxdepth 1 -type d | xargs -i cp -rf {} /build/lib/ && \
+    find $(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])') -maxdepth 1 -name "*.py" -type f | xargs -i cp -f {} /build/site-packages/ && \
+    find $(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])') -maxdepth 1 -name "vsutil" -type d | xargs -i cp -rf {} /build/site-packages/
 
 ## Install jupyter
 FROM rnbguy/archlinux-yay:latest as Main
