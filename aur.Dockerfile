@@ -23,30 +23,37 @@ RUN yay -Syu --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git && \
     find /usr/lib -name "x26*" -maxdepth 1 -type f | xargs -i cp -f {} /build/bin/
 
 ## COPY Compile
-FROM rnbguy/archlinux-yay:latest as Main
-COPY --from=codec /build/ /usr/
+FROM rnbguy/archlinux-yay:latest as vs
 COPY ./yay* /tmp/
 USER aur
 ## Build vapoursynth
 RUN yay -Syyu --noconfirm zimg vapoursynth && \
     sudo -u root rm -rf /usr/lib/vapoursynth/libmiscfilters.so && \
     yay -Sya --noconfirm $(cat /tmp/yaylist1.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
-    yay -Sya --noconfirm $(cat /tmp/yaylist2.txt | grep -Ev '^$|#' | tr -s "\r\n" " ")
-
+    yay -Sya --noconfirm $(cat /tmp/yaylist2.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
+    sudo -u root mkdir -p /build && sudo -u root chown -R aur /build  && \
+    sudo -u root mkdir -p /build/lib && sudo -u root chown -R aur /build/lib && \
+    sudo -u root mkdir -p /build/site-packages && sudo -u root chown -R aur /build/site-packages && \
+    find /usr/lib -name "vapoursynth*" -type d | xargs -i cp -f {} /build/lib/ && \
+    find /usr/lib /usr/lib/python3.10/site-packages/ -maxdepth 1 -name "*.py" -type f | xargs -i cp -f {} /build/site-packages/ && \
+    find /usr/lib /usr/lib/python3.10/site-packages/ -maxdepth 1 -name "vsutil" -type d | xargs -i cp -rf {} /build/site-packages/
 
 ## Install jupyter
+FROM rnbguy/archlinux-yay:latest as Main
 ARG BUILD_DATE
 MAINTAINER Learning Enocder
 LABEL Version='AUR Version'\
       DESCRIPTTION='Bulid in ArchLinux；Driven by AUR; Built on ${BUILD_DATE}'
+COPY --from=codec /build/ /usr/
+COPY --from=vs /build/ /usr/
 USER root
-RUN  pacman -Syu --noconfirm python3 python-pip && \
-     pip3 install yuuno jupyterlab
+# RUN  pacman -Syu --noconfirm python3 python-pip && \
+RUN  pip3 install yuuno jupyterlab
 
 # FROM archlinux:base as Main
 # COPY --from=codec /usr /usr
-# COPY --from=vs /usr /usr
-# COPY --from=vs /usr/lib/vapoursynth /usr/lib/vapoursynth/
+# COPY --from=vs /build/lib/vapoursynth /usr/lib/vapoursynth/
+# COPY --from=vs /build/site-packages /usr/lib/python3.10/site-packages/
 # RUN yay -Sya --noconfirm python3 python-pip && \
 #     pip3 install yuuno jupyterlab
 
