@@ -15,6 +15,9 @@ vapoursynth-plugin-rekt-git
 vapoursynth-plugin-awsmfunc-git
 vapoursynth-plugin-lvsfunc-git
 
+#Conflict
+vapoursynth-miscfilters-obsolete-git
+
 # OpenCL/Vulkan/Cuda needed
 # vapoursynth-plugin-bilateralgpu-git
 # vapoursynth-plugin-bm3dcuda-git

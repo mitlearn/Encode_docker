@@ -1,8 +1,10 @@
+#Basement
 vapoursynth-plugin-lsmashsource-git
+ffms2-git
 #A
 vapoursynth-plugin-adaptivegrain-git
 vapoursynth-plugin-addgrain-git
-#vapoursynth-plugin-vsakarin-git
+vapoursynth-plugin-vsakarin-git
 #vapoursynth-plugin-awarpsharp2-git
 #B
 vapoursynth-plugin-bestaudiosource-git
@@ -22,7 +24,6 @@ vapoursynth-plugin-deblock-git
 vapoursynth-plugin-eedi2-git
 vapoursynth-plugin-edgefixer-git
 #F
-ffms2-git
 vapoursynth-plugin-fieldhint-git
 vapoursynth-plugin-fillborders-git
 vapoursynth-plugin-neo_f3kdb-git
@@ -39,7 +40,8 @@ vapoursynth-plugin-imwri-git
 vapoursynth-plugin-knlm-git
 #M
 vapoursynth-plugin-median-git
-vapoursynth-miscfilters-obsolete-git
+vapoursynth-plugin-misc-git
+# vapoursynth-miscfilters-obsolete-git
 vapoursynth-plugin-msmoosh-git
 vapoursynth-plugin-mvtools-git
 # vapoursynth-plugin-mvtools_sf-git
