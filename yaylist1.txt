@@ -4,7 +4,6 @@ ffms2-git
 #A
 vapoursynth-plugin-adaptivegrain-git
 vapoursynth-plugin-addgrain-git
-#vapoursynth-plugin-vsakarin-git
 #vapoursynth-plugin-awarpsharp2-git
 #B
 vapoursynth-plugin-bestaudiosource-git
