@@ -28,8 +28,8 @@ COPY ./yay* /tmp/
 USER aur
 ## Build vapoursynth
 RUN yay -Syyu --noconfirm zimg vapoursynth && \
-    sudo -u root rm -rf /usr/lib/vapoursynth/libmiscfilters.so && \
     yay -Sya --noconfirm $(cat /tmp/yaylist1.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
+    sudo -u root rm -rf /usr/lib/vapoursynth/libmiscfilters.so && \
     yay -Sya --noconfirm $(cat /tmp/yaylist2.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
     sudo -u root mkdir -p /build && sudo -u root chown -R aur /build  && \
     sudo -u root mkdir -p /build/lib && sudo -u root chown -R aur /build/lib && \
