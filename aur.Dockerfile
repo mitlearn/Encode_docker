@@ -47,8 +47,8 @@ LABEL Version='AUR Version'\
 COPY --from=codec /build/ /usr/
 COPY --from=vs /build/ /usr/
 USER root
-# RUN  pacman -Syu --noconfirm python3 python-pip && \
-RUN  pip3 install yuuno jupyterlab
+RUN  pacman -Syu --noconfirm python3 python-pip && \
+     pip3 install yuuno jupyterlab
 
 # FROM archlinux:base as Main
 # COPY --from=codec /usr /usr
