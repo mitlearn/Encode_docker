@@ -31,7 +31,7 @@ RUN yay -Syyu --noconfirm zimg vapoursynth && \
     sudo -u root mkdir -p /build/lib && sudo -u root chown -R aur /build/lib && \
     sudo -u root mkdir -p /build/site-packages && sudo -u root chown -R aur /build/site-packages && \
     ## .binary Migrate
-    find /usr/bin -name "x265*" -maxdepth 1 -type f | xargs -i cp -f {} /build/bin/
+    find /usr/bin -name "x265*" -maxdepth 1 -type f | xargs -i cp -f {} /build/bin/ && \
     ## .so Migrate
     find /usr/lib -name "*x26*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
     find /usr/lib -name "*hdr10*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
