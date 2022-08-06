@@ -4,15 +4,18 @@
 FROM rnbguy/archlinux-yay:latest AS codec
 USER aur
 RUN yay -Syu --noconfirm svt-av1-git x264-tmod-git l-smash-x264-tmod-git && \
+    ## Migrate folder
     sudo -u root mkdir -p /build && sudo -u root chown -R aur /build  && \
     sudo -u root mkdir -p /build/bin && sudo -u root chown -R aur /build/bin  && \
     sudo -u root mkdir -p /build/lib && sudo -u root chown -R aur /build/lib  && \
+    ## .so Migrate
     find /usr/lib -name "*lsmash.so*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
-    find /usr/lib -name "*x264.so*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
-    # cp /usr/lib/libx265.so /build/lib/ && cp /usr/lib/libhdr10plus.so /build/lib/ && \
-    find /usr/lib -name "libSvtAv1.so*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
-    find /usr/lib -name "SvtAv1*" -maxdepth 1 -type f | xargs -i cp -f {} /build/bin/ && \
-    find /usr/lib -name "x26*" -maxdepth 1 -type f | xargs -i cp -f {} /build/bin/
+    find /usr/lib -name "*x26*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
+    find /usr/lib -name "*hdr10*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
+    find /usr/lib -name "*SvtAv1.so*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
+    ## .binary Migrate
+    find /usr/bin -name "SvtAv1*" -maxdepth 1 -type f | xargs -i cp -f {} /build/bin/ && \
+    find /usr/bin -name "x26*" -maxdepth 1 -type f | xargs -i cp -f {} /build/bin/
 
 ## COPY Compile
 FROM rnbguy/archlinux-yay:latest as vs
@@ -23,14 +26,18 @@ RUN yay -Syyu --noconfirm zimg vapoursynth && \
     yay -Sya --noconfirm $(cat /tmp/yaylist1.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
     sudo -u root rm -rf /usr/lib/vapoursynth/libmiscfilters.so && \
     yay -Sya --noconfirm $(cat /tmp/yaylist2.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
+    ## Migrate folder
     sudo -u root mkdir -p /build && sudo -u root chown -R aur /build  && \
     sudo -u root mkdir -p /build/lib && sudo -u root chown -R aur /build/lib && \
     sudo -u root mkdir -p /build/site-packages && sudo -u root chown -R aur /build/site-packages && \
-    find /usr/lib -name "vapoursynth*" -maxdepth 1 -type d | xargs -i cp -rf {} /build/lib/ && \
+    ## .so Migrate
+    cp -rf /usr/lib/vapoursynth /build/lib/vapoursynth && \
+    ## .py Migrate
+    find $(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])') -maxdepth 1 -name "vapoursynth*" -type f | xargs -i cp -f {} /build/site-packages/ && \
     find $(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])') -maxdepth 1 -name "*.py" -type f | xargs -i cp -f {} /build/site-packages/ && \
     find $(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])') -maxdepth 1 -name "vsutil" -type d | xargs -i cp -rf {} /build/site-packages/
 
-## Install jupyter
+## Main Stage
 # FROM rnbguy/archlinux-yay:latest as Main
 FROM archlinux:base
 ARG BUILD_DATE
@@ -39,9 +46,11 @@ LABEL Version='AUR Version'\
       DESCRIPTTION='Bulid in ArchLinux；Driven by AUR; Built on ${BUILD_DATE}'
 COPY --from=codec /build/ /usr/
 COPY --from=vs /build/ /usr/
+## Install jupyter
 RUN  pacman -Syu --noconfirm python3 python-pip && \
      pip3 install yuuno jupyterlab && \
-     pacman -Scc && \
+     ## Clean
+     pip cache purge && pacman -Scc && \
      mv /usr/site-packages/ $(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')/site-packages/
 
 ENV JUPYTER_CONFIG_DIR=/jupyter/config \
