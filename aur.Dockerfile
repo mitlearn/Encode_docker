@@ -28,6 +28,7 @@ RUN yay -Syyu --noconfirm zimg vapoursynth && \
     yay -Sya --noconfirm $(cat /tmp/yaylist2.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
     ## Migrate folder
     sudo -u root mkdir -p /build && sudo -u root chown -R aur /build  && \
+    sudo -u root mkdir -p /build/bin && sudo -u root chown -R aur /build/bin  && \
     sudo -u root mkdir -p /build/lib && sudo -u root chown -R aur /build/lib && \
     sudo -u root mkdir -p /build/site-packages && sudo -u root chown -R aur /build/site-packages && \
     ## .binary Migrate
