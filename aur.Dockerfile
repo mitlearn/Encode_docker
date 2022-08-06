@@ -1,13 +1,5 @@
 # nohup docker build . -f /root/aur.Dockerfile -t vapoursynth-yuuno-codec:0.1 > run.log 2>&1 &
 
-# FROM archlinux:base-devel as builder
-
-# ARG BUILD_DATE
-# LABEL Version='AUR Version'\
-#       MAINTAINER='Learning Enocder' \
-#       DESCRIPTTION='Bulid in ArchLinux；Driven by AUR; Built on ${BUILD_DATE}'
-
-
 ## Build codec
 FROM rnbguy/archlinux-yay:latest AS codec
 USER aur
@@ -39,23 +31,18 @@ RUN yay -Syyu --noconfirm zimg vapoursynth && \
     find $(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])') -maxdepth 1 -name "vsutil" -type d | xargs -i cp -rf {} /build/site-packages/
 
 ## Install jupyter
-FROM rnbguy/archlinux-yay:latest as Main
+# FROM rnbguy/archlinux-yay:latest as Main
+FROM archlinux:base
 ARG BUILD_DATE
 MAINTAINER Learning Enocder
 LABEL Version='AUR Version'\
       DESCRIPTTION='Bulid in ArchLinux；Driven by AUR; Built on ${BUILD_DATE}'
 COPY --from=codec /build/ /usr/
 COPY --from=vs /build/ /usr/
-USER root
 RUN  pacman -Syu --noconfirm python3 python-pip && \
-     pip3 install yuuno jupyterlab
-
-# FROM archlinux:base as Main
-# COPY --from=codec /usr /usr
-# COPY --from=vs /build/lib/vapoursynth /usr/lib/vapoursynth/
-# COPY --from=vs /build/site-packages /usr/lib/python3.10/site-packages/
-# RUN yay -Sya --noconfirm python3 python-pip && \
-#     pip3 install yuuno jupyterlab
+     pip3 install yuuno jupyterlab && \
+     pacman -Scc && \
+     mv /usr/site-packages/ $(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')/site-packages/
 
 ENV JUPYTER_CONFIG_DIR=/jupyter/config \
     JUPYTER_DATA_DIR=/jupyter/data \
