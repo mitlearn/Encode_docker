@@ -32,10 +32,12 @@ RUN yay -Syyu --noconfirm zimg vapoursynth && \
     find /usr/bin -name "x265*" -maxdepth 1 -type f | xargs -i cp -f {} /build/bin/ && \
     find /usr/bin -name "vspipe*" -maxdepth 1 -type f | xargs -i cp -f {} /build/bin/ && \
     ## .so Migrate
- #   find /usr/lib -name "*x26*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
- #   find /usr/lib -name "*hdr10*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
- #   find /usr/lib -name "*zimg*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
-    find /usr/lib -name "lib*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
+    find /usr/lib -name "*x26*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
+    find /usr/lib -name "*hdr10*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
+    find /usr/lib -name "*zimg*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
+    find /usr/lib -name "libsw*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
+    find /usr/lib -name "libav*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
+    find /usr/lib -name "liblsmash*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
     find /usr/lib -name "*vapoursynth*" -maxdepth 1 -type f | xargs -i cp -f {} /build/lib/ && \
     cp -rf /usr/lib/vapoursynth /build/lib/vapoursynth && \
     ## .py Migrate
