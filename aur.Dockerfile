@@ -57,7 +57,7 @@ RUN  pacman -Syu --noconfirm python3 python-pip && \
      pip3 install yuuno jupyterlab && \
      ## Clean
      pip cache purge && pacman -Scc && \
-     mv /usr/site-packages/* `python3 -c 'import sysconfig;print(sysconfig.get_paths()["purelib"])'`
+     mv /usr/site-packages/* $(python3 -c 'import sysconfig;print(sysconfig.get_paths()["purelib"])')
 
 ENV JUPYTER_CONFIG_DIR=/jupyter/config \
     JUPYTER_DATA_DIR=/jupyter/data \
