@@ -24,7 +24,7 @@ FROM yay as vs
 COPY ./yay* /tmp/
 USER aur
 ## Build vapoursynth
-RUN yay -Su --noconfirm zimg vapoursynth && \
+RUN yay -Su --noconfirm zimg-git vapoursynth-git && \
     yay -Sa --noconfirm $(cat /tmp/yaylist1.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
     sudo -u root rm -rf /usr/lib/vapoursynth/libmiscfilters.so && \
     yay -Sa --noconfirm $(cat /tmp/yaylist2.txt | grep -Ev '^$|#' | tr -s "\r\n" " ") && \
