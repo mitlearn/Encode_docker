@@ -45,7 +45,10 @@ vapoursynth-plugin-msmoosh-git
 vapoursynth-plugin-mvtools-git
 # vapoursynth-plugin-mvtools_sf-git
 #N
+vapoursynth-plugin-nnedi3-git
 vapoursynth-plugin-nnedi3_weights_bin
+#P
+vapoursynth-plugin-placebo-git
 #R
 vapoursynth-plugin-readmpls-git
 vapoursynth-plugin-reduceflicker-git
