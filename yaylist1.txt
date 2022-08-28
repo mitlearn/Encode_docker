@@ -49,6 +49,7 @@ vapoursynth-plugin-nnedi3_weights_bin
 #R
 vapoursynth-plugin-readmpls-git
 vapoursynth-plugin-reduceflicker-git
+vapoursynth-plugin-remapframes-git
 vapoursynth-plugin-removegrain-git
 vapoursynth-plugin-removedirtvs-git
 vapoursynth-plugin-retinex-git
